@@ -1,879 +1,183 @@
 <!DOCTYPE html>
+
 <html lang="vi">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dịch Vụ MyViettel & VNPT</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #2e7d32 0%, #81c784 100%);
-            min-height: 100vh;
-            padding: 20px;
-            position: relative;
-            overflow-x: hidden;
-        }
+<meta charset="UTF-8">
 
-        /* Animated background circles */
-        body::before,
-        body::after {
-            content: '';
-            position: fixed;
-            border-radius: 50%;
-            z-index: 0;
-            animation: float 20s infinite ease-in-out;
-        }
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        body::before {
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.15), transparent);
-            top: -100px;
-            right: -100px;
-            animation-delay: 0s;
-        }
+<title>EM ĐẠT MMO - UY TÍN SỐ 1</title>
 
-        body::after {
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent);
-            bottom: -50px;
-            left: -50px;
-            animation-delay: 5s;
-        }
+<script src="https://cdn.tailwindcss.com"></script>
 
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(50px, 50px) scale(1.1); }
-            66% { transform: translate(-30px, 80px) scale(0.9); }
-        }
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
+<style>
 
-        /* Hero Section */
-        .hero {
-            text-align: center;
-            padding: 30px 20px;
-            animation: fadeInDown 0.8s ease-out;
-        }
+/* Hiệu ứng nhấp nháy cho tên */
 
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+.nhap-nhay-ten { animation: blink 1s linear infinite; }
 
-        .profile-image {
-            width: 140px;
-            height: 140px;
-            margin: 0 auto 25px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #1b5e20, #66bb6a);
-            padding: 5px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-            position: relative;
-            animation: profilePop 1s ease-out;
-        }
+@keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.1; } 100% { opacity: 1; } }
 
-        @keyframes profilePop {
-            0% { transform: scale(0) rotate(-180deg); opacity: 0; }
-            50% { transform: scale(1.1) rotate(10deg); }
-            100% { transform: scale(1) rotate(0deg); opacity: 1; }
-        }
+.floating { animation: float 3s ease-in-out infinite; }
 
-        .profile-image::before {
-            content: '';
-            position: absolute;
-            inset: -5px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #1b5e20, #66bb6a, #1b5e20);
-            opacity: 0.5;
-            filter: blur(15px);
-            z-index: -1;
-            animation: pulse 2s infinite;
-        }
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 0.5; transform: scale(1); }
-            50% { opacity: 0.8; transform: scale(1.05); }
-        }
+</style>
 
-        .profile-image-inner {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            overflow: hidden;
-            background: #fff;
-            border: 3px solid white;
-        }
-
-        .profile-image-inner img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .profile-image:hover .profile-image-inner img {
-            transform: scale(1.1);
-        }
-
-        .name {
-            font-size: 32px;
-            font-weight: 800;
-            color: white;
-            margin-bottom: 12px;
-            text-shadow: 3px 3px 12px rgba(0, 0, 0, 0.4);
-            animation: fadeIn 0.8s ease-out 0.3s both;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .title {
-            font-size: 18px;
-            color: rgba(255, 255, 255, 0.95);
-            margin-bottom: 25px;
-            font-weight: 500;
-            animation: fadeIn 0.8s ease-out 0.4s both;
-        }
-
-        /* Logos */
-        .partner-logos {
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-            margin: 25px 0;
-            flex-wrap: wrap;
-            animation: fadeIn 0.8s ease-out 0.5s both;
-        }
-
-        .logo-box {
-            background: white;
-            padding: 15px 30px;
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .logo-box::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
-            transition: left 0.5s;
-        }
-
-        .logo-box:hover::before {
-            left: 100%;
-        }
-
-        .logo-box:hover {
-            transform: translateY(-8px) scale(1.05);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .logo-viettel {
-            font-size: 22px;
-            font-weight: 900;
-            color: #1b5e20;
-            letter-spacing: 1px;
-            position: relative;
-        }
-
-        .logo-vnpt {
-            font-size: 22px;
-            font-weight: 900;
-            color: #2e7d32;
-            letter-spacing: 1px;
-            position: relative;
-        }
-
-        /* Info Box */
-        .info-box {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.9));
-            border-radius: 25px;
-            padding: 30px;
-            margin: 25px 0;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-            animation: fadeInUp 0.8s ease-out 0.6s both;
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 255, 255, 0.5);
-            position: relative;
-            overflow: hidden;
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .info-box::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, rgba(46, 125, 50, 0.1), transparent);
-            border-radius: 50%;
-        }
-
-        .info-title {
-            font-size: 22px;
-            font-weight: 700;
-            background: linear-gradient(135deg, #1b5e20, #66bb6a);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 18px;
-            text-align: center;
-            position: relative;
-        }
-
-        .info-list {
-            color: #333;
-            line-height: 2;
-            font-size: 15px;
-            list-style: none;
-            position: relative;
-        }
-
-        .info-list li {
-            margin-bottom: 10px;
-            padding-left: 30px;
-            position: relative;
-            transition: all 0.3s ease;
-        }
-
-        .info-list li::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 20px;
-            height: 20px;
-            background: linear-gradient(135deg, #1b5e20, #66bb6a);
-            border-radius: 50%;
-            transition: all 0.3s ease;
-        }
-
-        .info-list li:hover {
-            transform: translateX(5px);
-            color: #2e7d32;
-        }
-
-        .info-list li:hover::before {
-            transform: translateY(-50%) scale(1.2);
-        }
-
-        /* Services Grid */
-        .services {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-            margin: 25px 0;
-        }
-
-        .service-card {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.9));
-            border-radius: 20px;
-            padding: 25px;
-            text-align: center;
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            animation: fadeInUp 0.8s ease-out both;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 255, 255, 0.5);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .service-card:nth-child(1) { animation-delay: 0.7s; }
-        .service-card:nth-child(2) { animation-delay: 0.8s; }
-        .service-card:nth-child(3) { animation-delay: 0.9s; }
-
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(46, 125, 50, 0.1), rgba(102, 187, 106, 0.1));
-            transition: left 0.5s;
-        }
-
-        .service-card:hover::before {
-            left: 0;
-        }
-
-        .service-card:hover {
-            transform: translateY(-10px) scale(1.03);
-            box-shadow: 0 20px 50px rgba(46, 125, 50, 0.3);
-        }
-
-        .service-icon {
-            font-size: 48px;
-            margin-bottom: 15px;
-            display: inline-block;
-            animation: bounce 2s infinite;
-            filter: drop-shadow(0 5px 10px rgba(46, 125, 50, 0.4));
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .service-card:hover .service-icon {
-            animation: spin 0.6s ease;
-        }
-
-        @keyframes spin {
-            from { transform: rotate(0deg) scale(1); }
-            50% { transform: rotate(180deg) scale(1.2); }
-            to { transform: rotate(360deg) scale(1); }
-        }
-
-        .service-title {
-            font-size: 18px;
-            font-weight: 700;
-            color: #1b5e20;
-            margin-bottom: 10px;
-            position: relative;
-        }
-
-        .service-description {
-            color: #558b2f;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-
-        /* Stats */
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin: 25px 0;
-        }
-
-        .stat-card {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.9));
-            border-radius: 20px;
-            padding: 25px;
-            text-align: center;
-            transition: all 0.4s ease;
-            animation: fadeInUp 0.8s ease-out both;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 255, 255, 0.5);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .stat-card:nth-child(1) { animation-delay: 1s; }
-        .stat-card:nth-child(2) { animation-delay: 1.1s; }
-
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: linear-gradient(135deg, rgba(46, 125, 50, 0.2), rgba(102, 187, 106, 0.2));
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-
-        .stat-card:hover::before {
-            width: 300px;
-            height: 300px;
-        }
-
-        .stat-card:hover {
-            transform: scale(1.08) rotate(2deg);
-            box-shadow: 0 20px 50px rgba(46, 125, 50, 0.3);
-        }
-
-        .stat-icon {
-            font-size: 40px;
-            margin-bottom: 10px;
-            position: relative;
-            z-index: 1;
-            filter: drop-shadow(0 5px 10px rgba(46, 125, 50, 0.2));
-        }
-
-        .stat-number {
-            font-size: 40px;
-            font-weight: 800;
-            background: linear-gradient(135deg, #1b5e20, #66bb6a);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 8px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .stat-label {
-            color: #333;
-            font-size: 15px;
-            font-weight: 600;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Contact */
-        .contact-section {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.9));
-            border-radius: 25px;
-            padding: 30px;
-            margin: 25px 0;
-            text-align: center;
-            animation: fadeInUp 0.8s ease-out 1.5s both;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 255, 255, 0.5);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .contact-section::before {
-            content: '';
-            position: absolute;
-            bottom: -50%;
-            left: -50%;
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, rgba(46, 125, 50, 0.1), transparent);
-            border-radius: 50%;
-        }
-
-        .contact-title {
-            font-size: 26px;
-            font-weight: 800;
-            background: linear-gradient(135deg, #1b5e20, #66bb6a);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 20px;
-            position: relative;
-        }
-
-        .contact-methods {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .contact-item {
-            background: linear-gradient(135deg, #1b5e20, #66bb6a);
-            padding: 14px 28px;
-            border-radius: 30px;
-            color: white;
-            text-decoration: none;
-            font-size: 15px;
-            font-weight: 600;
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            box-shadow: 0 8px 25px rgba(46, 125, 50, 0.4);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .contact-item::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-
-        .contact-item:hover::before {
-            width: 300px;
-            height: 300px;
-        }
-
-        .contact-item:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 40px rgba(46, 125, 50, 0.6);
-        }
-
-        .contact-item span {
-            font-size: 18px;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Proof Section */
-        .proof-section {
-            margin: 25px 0;
-            animation: fadeInUp 0.8s ease-out 1.2s both;
-            position: relative;
-        }
-
-        .proof-title {
-            font-size: 26px;
-            font-weight: 800;
-            background: linear-gradient(135deg, #1b5e20, #66bb6a);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 25px;
-            text-align: center;
-            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .proof-container {
-            position: relative;
-            padding: 0 50px;
-        }
-
-        .proof-grid {
-            display: flex;
-            gap: 15px;
-            overflow-x: auto;
-            scroll-behavior: smooth;
-            padding: 10px 5px;
-            scrollbar-width: thin;
-            scrollbar-color: rgba(46, 125, 50, 0.5) rgba(255, 255, 255, 0.2);
-        }
-
-        .proof-grid::-webkit-scrollbar {
-            height: 8px;
-        }
-
-        .proof-grid::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-        }
-
-        .proof-grid::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, #1b5e20, #66bb6a);
-            border-radius: 10px;
-        }
-
-        .proof-grid::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(135deg, #2e7d32, #81c784);
-        }
-
-        .scroll-button {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #1b5e20, #66bb6a);
-            color: white;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            box-shadow: 0 5px 20px rgba(46, 125, 50, 0.5);
-            transition: all 0.3s ease;
-            z-index: 2;
-        }
-
-        .scroll-button:hover {
-            transform: translateY(-50%) scale(1.15);
-            box-shadow: 0 8px 30px rgba(46, 125, 50, 0.7);
-            background: linear-gradient(135deg, #2e7d32, #81c784);
-        }
-
-        .scroll-button:active {
-            transform: translateY(-50%) scale(0.95);
-        }
-
-        .scroll-left {
-            left: 0;
-        }
-
-        .scroll-right {
-            right: 0;
-        }
-
-        .scroll-button.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .proof-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            position: relative;
-            cursor: pointer;
-            flex: 0 0 200px;
-            height: 280px;
-        }
-
-        .proof-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 20px 50px rgba(46, 125, 50, 0.3);
-        }
-
-        .proof-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .proof-card:hover .proof-image {
-            transform: scale(1.1);
-        }
-
-        .proof-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(27, 94, 32, 0.8), rgba(102, 187, 106, 0.8));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-
-        .proof-card:hover .proof-overlay {
-            opacity: 1;
-        }
-
-        .proof-icon {
-            font-size: 48px;
-            color: white;
-            transform: scale(0);
-            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        }
-
-        .proof-card:hover .proof-icon {
-            transform: scale(1);
-        }
-
-        @media (max-width: 600px) {
-            .name { font-size: 26px; }
-            .title { font-size: 16px; }
-            .services { grid-template-columns: 1fr; }
-            .info-box { padding: 25px 20px; }
-            .contact-methods { flex-direction: column; }
-            .contact-item { width: 100%; justify-content: center; }
-            .profile-image { width: 120px; height: 120px; }
-            .proof-container { padding: 0 40px; }
-            .proof-card { flex: 0 0 160px; height: 220px; }
-            .scroll-button { width: 35px; height: 35px; font-size: 18px; }
-        }
-    </style>
 </head>
-<body>
-    <div class="container">
-        <section class="hero">
-            <div class="profile-image">
-                <div class="profile-image-inner">
-                    <img src="11b3538b-f3c5-4dbc-ac7c-7bef4aeb55c1.jpg" alt="Profile">
-                </div>
-            </div>
-            <h1 class="name">Dat</h1>
-            <p class="title">Danh thiếp</p>
-            
-            <div class="partner-logos">
-                <div class="logo-box">
-                    <div class="logo-viettel">VIETTEL</div>
-                </div>
-                <div class="logo-box">
-                    <div class="logo-vnpt">VNPT</div>
-                </div>
-            </div>
-        </section>
 
-        <div class="info-box">
-            <h2 class="info-title">🎯 Dịch Vụ Chúng Tôi</h2>
-            <ul class="info-list">
-                <li>Đăng ký MyViettel</li>
-                <li>Đăng ký dịch vụ VNPT</li>
-                
-                <li>Hỗ trợ khách hàng 24/7 các job khác</li>
-            </ul>
-        </div>
+<body class="bg-gray-50 text-gray-900">
 
 
-        <section class="stats">
-            <div class="stat-card">
-                <div class="stat-icon">👥</div>
-                <div class="stat-number" data-target="1000">0</div>
-                <div class="stat-label">Khách Hàng Tin Tưởng</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon">🤝</div>
-                <div class="stat-number" data-target="30">0</div>
-                <div class="stat-label">Cộng Tác Viên</div>
-            </div>
-        </section>
+<div class="bg-white py-6 shadow-sm text-center border-b-2 border-red-500">
 
-        <section class="proof-section">
-            <h2 class="proof-title">💼 Bill Minh Chứng</h2>
-            <div class="proof-container">
-                <button class="scroll-button scroll-left" onclick="scrollProof('left')">◀</button>
-                <div class="proof-grid" id="proofGrid">
-                    <div class="proof-card">
-                        <img src="26646545221057477086.jpg" alt="Bill 1" class="proof-image">
-                        <div class="proof-overlay">
-                            <span class="proof-icon">🔍</span>
-                        </div>
-                    </div>
-                    <div class="proof-card">
-                        <img src="32525875120226433172.jpg" alt="Bill 2" class="proof-image">
-                        <div class="proof-overlay">
-                            <span class="proof-icon">🔍</span>
-                        </div>
-                    </div>
-                    <div class="proof-card">
-                        <img src="32525875120226433173.jpg" alt="Bill 3" class="proof-image">
-                        <div class="proof-overlay">
-                            <span class="proof-icon">🔍</span>
-                        </div>
-                    </div>
-                    <div class="proof-card">
-                        <img src="32525875120226433175.jpg" alt="Bill 4" class="proof-image">
-                        <div class="proof-overlay">
-                            <span class="proof-icon">🔍</span>
-                        </div>
-                    </div>
-                    <div class="proof-card">
-                        <img src="45064322720286241941.jpg" alt="Bill 5" class="proof-image">
-                        <div class="proof-overlay">
-                            <span class="proof-icon">🔍</span>
-                        </div>
-                    </div>
-                    <div class="proof-card">
-                        <img src="fd437e05bb7e34206d6f4.jpg" alt="Bill 6" class="proof-image">
-                        <div class="proof-overlay">
-                            <span class="proof-icon">🔍</span>
-                        </div>
-                    </div>
-                </div>
-                <button class="scroll-button scroll-right" onclick="scrollProof('right')">▶</button>
-            </div>
-        </section>
-        <section class="contact-section">
-            <h2 class="contact-title">Liên Hệ Ngay</h2>
-            <div class="contact-methods">
-                
-                <a href="https://zalo.me/g/zcbcur624" class="contact-item">
-                    <span>💬</span> Group Zalo
-                </a>
-                <a href="https://www.facebook.com/thanhh.hieuu.958661?mibextid=wwXIfr&rdid=fO3vm7luJIfEwooM&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1FP1kh8PqV%2F%3Fmibextid%3DwwXIfr" class="contact-item">
-                    <span>📘</span> Facebook
-                </a>
-            </div>
-        </section>
- <script>
-        // Counter animation
-        function animateCounter(element) {
-            const target = parseInt(element.getAttribute('data-target'));
-            const duration = 2000;
-            const increment = target / (duration / 16);
-            let current = 0;
-            
-            const timer = setInterval(() => {
-                current += increment;
-                if (current >= target) {
-                    element.textContent = target.toLocaleString() + (target >= 1000 ? '+' : '');
-                    clearInterval(timer);
-                } else {
-                    element.textContent = Math.floor(current).toLocaleString();
-                }
-            }, 16);
-        }
+<h1 class="text-4xl md:text-6xl font-black uppercase nhap-nhay-ten">
 
-        // Trigger counter when visible
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.querySelectorAll('.stat-number').forEach(stat => {
-                        animateCounter(stat);
-                    });
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.5 });
+<span class="text-blue-600">EM ĐẠT</span> <span class="text-red-600">MMO</span>
 
-        const statsSection = document.querySelector('.stats');
-        if (statsSection) observer.observe(statsSection);
+</h1>
 
-        // Scroll proof bills
-        function scrollProof(direction) {
-            const grid = document.getElementById('proofGrid');
-            const scrollAmount = 220;
-            
-            if (direction === 'left') {
-                grid.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-            } else {
-                grid.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-            }
-        }
+<p class="font-bold text-gray-500 mt-2 uppercase tracking-widest text-sm">Hỗ trợ MyViettel & MyVina chuyên nghiệp</p>
 
-        // Update scroll buttons visibility
-        function updateScrollButtons() {
-            const grid = document.getElementById('proofGrid');
-            const leftBtn = document.querySelector('.scroll-left');
-            const rightBtn = document.querySelector('.scroll-right');
-            
-            if (grid.scrollLeft <= 0) {
-                leftBtn.classList.add('hidden');
-            } else {
-                leftBtn.classList.remove('hidden');
-            }
-            
-            if (grid.scrollLeft >= grid.scrollWidth - grid.clientWidth - 10) {
-                rightBtn.classList.add('hidden');
-            } else {
-                rightBtn.classList.remove('hidden');
-            }
-        }
-
-        const proofGrid = document.getElementById('proofGrid');
-        if (proofGrid) {
-            proofGrid.addEventListener('scroll', updateScrollButtons);
-            window.addEventListener('resize', updateScrollButtons);
-            setTimeout(updateScrollButtons, 100);
-        }
-    </script>
+</div>
 
 
-            
+<section class="py-12 bg-white text-center">
+
+<div class="flex justify-center items-center space-x-8 mb-10">
+
+<img src="data:image/png;base64,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" class="h-24 md:h-32 floating" alt="Viettel">
+
+<div class="h-16 w-px bg-gray-300"></div>
+
+<img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAJQAlAMBEQACEQEDEQH/xAAbAAEAAgMBAQAAAAAAAAAAAAACAAYBBQcEA//EADsQAAEDAwEEBgcHAwUAAAAAAAEAAgMEBREhBhIxQRNRYXGBkQcUIlKhwdEVIzJCseHwQ2KSFiRyssL/xAAaAQACAwEBAAAAAAAAAAAAAAAAAQIEBQMG/8QAMhEAAgICAAQCCAUFAQAAAAAAAAECAwQRBRIhMUFREyIyYXGBobEUkcHR8BUjM0PhQv/aAAwDAQACEQMRAD8A7igDx3K5Utsg6ark3R+Vo1Lj2BdaaZ3S5YI5W3QqW5FIum19fUktosUsXWMOefE8PDzW5RwuqHWfV/Qyrc+yXs9EV+oq6qoJNRUTSZP55CVoQqhD2UkVJWSl3Z5iF2IAITABCYBIUhAITABCkmB8yEwCQpAAhMAEKQGGufG7eje5jutriD8ENJ9wTa7Gzt+098txb6vcZi0f05j0jSOr2vlhVLeH413tQXy6fY7QybodpfqXzZr0gUlfIymurG0k7tGyA5jef/Pjp2rAzODWUrnp9ZfX/pp0Z8ZvU+jLuCNMLFNAygDyXWvittE+pm1DdA0cXHkF1ppldNQicrrVVDmZzK41k9wqXVFU7LzwHJo6gvTU0wqgow7GBZZKyXNLueQhdzmAhSABCYAIUgAQnsAkJgAhSEAhMAEKSABCYAIUgCQmACFID5kJiA5uRghMDoPo72re2aOzXKQua7SmlcdQfcJ/TyXneL8OWnkVL4r9f3NTByuvo5/I6UCvNbNYom2Vcai5eqtP3dOMHHNxAJ+nmt7htPJXzvuzFzreazl8EV4haRSAQpCAQmACFIAFqYBITABCkACE0ACFIQCEwAQpAAhMAEJgAhSABCkACExBy5pDmOLXNOWuBwQetN9VphvXVHdNlrr9s2KmrXY6RwLZQOTwcH9M+K8Hm4/4e+Vfh4fBnpMe30takUCslM9XPKSTvyOd5legqjyxUTAm+aTZ8V0ImCEwAQpCAQmASFIAEJgAhMD5nU4GpUgC4bv4tO9NCYCFIAEJ7AVPSVFXL0VLBJNJ7sbS4qM7Y1rc3pEoxlN6itm3/wBG34w9J6mOGdzpW736qn/VcVPXN9yx+Cv1vRoJYpIpHRzMcyRpw5rhgtPUVoxkpLa7FZpp6Z8iFMR8yFIAkJiLXsltIbRbpaZzjgzF415FrfoVk5+D6exTXl+5fxclVwcX5iUCmRMDCYGCMpgAhSEBwT2BuLNszWXQNld/t6c/1HjV3cFRyeIV09F1Zbow529eyLdQ7KWqkALoOnf70x3vhwWRbxDIs8dL3GlDCqh4b+Jt4qaGFobFDGxvU1oAVSU5Se2yyopdkJ8Mbxh8bHDqLcpKTXZj5U+5qa/Za0VoO/Rsiefzw+wQfDRWqs/Jr7S38epXsxKZ90V87BwU88k1RVSS0bG73Rxs+8d2afJaH9XnKKjGKUn59ip/T4xe5Pp9TVVG1z6Znq9go4qGnHMsBe7tPLPflW4cMU3z5EnJ/T+fkcHm8q5aVpG02J2kuFfdHUNfIJmujL2P3QC0jGmiq8SwKqqvSVrXUsYWVZZPkn1NV6S6WOG9QTMaA6eHL8cyDjPljyVvgtjlQ4vwZw4hFK1NeJUCFslA+ZCkASEwAQmItqxyREDImBhMDBCewLTsvs62QMrrhHlp1iiPP+4/ILIzs7/XW/izSxMTfrz+RcwAOCxzVMoAiAIgCIAwQgCp7XbLMr431tvjDKwDLmDQTfutXA4i6Wq7H6v2/wCFDLxFYueHf7mo9G9C51fVVrgQIWdEM6e0Tkj4fFW+M3f241+fUr8Or3Nzfh0PD6RqgT38RNOkELWHvJJ+YVjg0OXH35s58Qlu3XkVUha5RAQmACFIAFqewLWscZhAETGRMDa7NW0XK4DpRmCL2pB19Q/nUqebkeir6d2WsSj0tnXsja33aeQSOp7W4BrTh03HJ/t+qq4vD00p2/kWcjNafLX+ZpIr/dYZRIKx78HVsntNKvSwqJLXKVI5d0XvmL9Zriy52+Opa3dJyHtz+Fw4hYGRS6bHBm1RarYKR7lxOpEARAEQBgjKAPg2KCjjmka1sbSTLIRpk41J8lJuVjSfXwRHUYJs4zcqp1fX1FW7jNIXjsB4Dywva0VqqtQ8jzdk3Obk/E8hC7ED5kKQBITAJCYFnWQMiAIpAYQMsLZvsrZZgiO7UV7ic8wzh+mPNZ3L6fL2+0S/zehxuneRXfgtNFAJKYF32Cz9mVHV6wcf4tWHxX/Kvh+rNfh3+N/H9EWdZhoEQBEARAEQBWNvLn6naTSsdiWq9jHUz8x+XitLhdHpLud9o/fwKWdbyV8q7s5mQvUIwwEKQAITABCkASEwLKscZhMCKQGHHAJTQPsbXaR+Kmmpho2npo2AdpGT8lUw16sp+bZby36yj5JGoKuoqgPYpAdF2QpTTWOEu0dMTIR38Phhebz7Oe9+7obuHBwpW/E3aploiAIgCIAEsrIY3SSODWNBLnE6ABNJt6Qm0ltnLqypk2m2ljDM9HLIGRtP5YxxPlkr08IRwsVt919zBnN5N68v0NTcY2w19VEwYayZ7QOoAlXaJOVcW/FI4WLlm172eUhdiASmACEwDhSAsSyBkQBhSGFx0KYHtvr+kuBkHB0UTh4sauOKtV697+7O+Q92b9y+xriVaRwPVaaJ1yuUNK3O645eRyaOK5ZFypqc/I601u2xQOqRtDGNa0YaBgAcl5Xbfc9Cui6CQMiAIgDB4IAo23l9yTaaZ+RxqHDzDfqtvheJ/un8v3MrPyN/2o/P9h+j61FjH3Odur8sh04N5nz081Hi2RtqmPh3Hw6nS9I/kUy4yCS4Vcg4OmeR/kVuULVUV7kZtj3Nv3s8hK7HMJKYBKYBUgLEsckYJTAJKkiQSUxH1qpOljp351bH0bu9p0+BCjWuVyROb2k/keYnC7EC87DW3oaJ1dIPvJ9GZ5MH1+iwuJX80/Rrw+5r4FWoekfiWlZpoEQBEARAFf2sv7bPS7kRBq5Qejb7o94/JXsHDeRPb9lfzRUy8lUx0u7KFYrXNfLoIS5xZnfnkJyQO/rK38rIjjVbXfwRkUUu+zT+Z0q7VEVosc8sYaxkEW7G0cAeDR54XmaISvvjF9ds3LZKqpvyOO8u3rXtEebCSmASUwCSmAcqQbLISsYmAlMYcqYMJKYgknGOSaA9NronXG4wUjcjpHe0epo1J8lC+1VVufkdKq3bNROrRRtiY1jG7rWjAA5BeVbbe2eiS0tIaBkQBEAau/3mCzUZmlO9I7SOMHV5+narOLjSyJ8se3izhkXxpht9zl8j6293PJzNVTuwANPDsAXqEq8arySMFud1m/FnT9n7PDZaFtO3DpXayye+76BeXysmWRZzPt4G9j0RohyoqPpDvAlnZa6dwLIjvzEe9yHhn4ha/CMXSd0vHsZ3EL9v0a+ZSyVuGaElMAkpgElMRhMCxErGOoCUwCSpiMEpgElSQFw9H9GM1Nc4dUTOzmfksjilvs1r4mnw6vvMuiyDUIgCIA1t7vFNZ6R01QcuOkcYOrz1furGNjTyJ8sThffGmO2cvrKquvty3y0y1Ep3Y4mD8I6h2dq9PXXVi1a7JdzCnOy+zfds6Hsvs7HZYDLIWyVkg+8eBo0e6PrzXns3NeRLS6RX82bOLjKlbftP+aPPtbtPHa4zS0jmvrnDvEQ6z29QU8DAd755+z9yGXlqpcsfaOYPe55Lnkuc45JJySV6pRSWkYj6gJUhBJTAJKYjCYEQBYCVjHUBUgMFSEAlMDGVJAdI2KY1uztM4cXueT37xHyXnuIPeQ/l9jbwVqhfP7m+VIuGCQgDQbQ7T0tpa6KMier5RtOjf+R5d3FXsXBsve30iVMjLhV0XVlGipbrtPXunOXk6Omf7McY6h3dQW3KyjCr5fp4sylC7JnzfXwRbreLDstATLWRSVRH3jx7T3dgAzgLJt/FZ0ukfV+n5mjWsfFXfr9TS3zbmoqGuhtTDTxnQzO/Ge4cB8VexuERj61z37vArX8QlLpX0Xn4lOe4vcXPcXOcckk5JK2ktLSM7YSVIQCUwCSmIwmBEARAG+eCx7mni04Kxk9rZ1fR6AVITCSpAElSQBJUgLTsjtJBboTRV5c2Le3o5AMhueII/nFZmdhStl6SvuX8PLjWuSfYsNTthZoGbzah0x5NiYSfjgKjDh2RJ61r4l2WbSl32VW87ZVtaHRUQ9UhPMHLz48vDzWnj8Mrr9afrP6FC7OnPpHovqVguJJJ1J5laiKBDLIWbm+7c93Jx5I5VvY9vWj5DTgAF0IhJUgCSmBglSABKYjCYEQBEAeimopqlhfE0kA7p7/4VynbGD0ycK5TW0WTaGlNJeaqLGGl5e3udqP1PksXFnz1RZZyIclskazKsFdhJypAElSAxlSEAlNAHKkASpCMEqSABKaAJKmhGCmACmBglTQBTERAEQBhAHTtgLTGNnmT1DPaqJXSDPVoB/1z4ry3Fcl/iXGL7LRt4FX9nb8T07a2l1XSNraduZYB7YA1cz9uPmq+BeoS5JdmPNp54867ooBIW2jHCSpAElMAlSQgkqSAOVIAkpiCVJAElSAJUkIJKaAJKkgMKQEQBExEQBsLDaZb1co6OLIafalePyM5n5DtVXLyo41Tm/l8TrRS7pqCO008TIIGQxNDI2NDWtHIBeKlJyfM+7PSxSS0j6EaJDKRtNso8PfV2pm8DrJAOI7W/Ra2LnL2LfzMvJwv/Vf5FMdlpLXAhwOCCNQVqozPHQCpaAwSpCAeKkBglSAJKkhBJUgCSmAcqSEElSQBJTQETAymBEAbCy2WuvU4joossBw+Z2jGd56+wKtlZdWPHc38vE600Tueoo6zs9Y6ax0YgpxvPdrLKRq8/TqC8llZVmTZzS+S8jeoojTHSNqqx3IgDBQBrrnY7ddNaynDn8pGndcPELtVkW1ewzjZj12+0ii7R2GltpcaeSY9j3A/JbOLlTt6SSMrIxoV9UVo8StEpBTAJKkgCVJCCpAEpoQSpIAqQETAiYHpt9O2pqGxvLmg828Vztm4R2idcVOWmdFs2xNmETJ6hk1S7jiWTTyGM+K85k8Uyd8sWl8DXqwKe76/EtsMMcEbYoWNjjYMNa0YACyZScnuXVl9RSWkfRIZEAf/2Q==" class="h-24 md:h-32 floating" style="animation-delay: 1s;" alt="VNPT">
+
+</div>
+
+
+<h2 class="text-3xl md:text-5xl font-black mb-8 uppercase leading-tight">
+
+HỖ TRỢ <span class="text-red-600">CHUẨN HÓA THUÊ BAO</span>
+
+</h2>
+
+
+<div class="flex justify-center gap-6 mb-12">
+
+<div class="bg-white border-2 border-blue-500 p-4 rounded-2xl shadow-xl w-40">
+
+<div class="text-3xl font-black text-blue-600 counter" data-target="2438">0</div>
+
+<p class="text-[10px] font-bold text-gray-500 uppercase">Tin cậy</p>
+
+</div>
+
+<div class="bg-white border-2 border-red-500 p-4 rounded-2xl shadow-xl w-40">
+
+<div class="text-3xl font-black text-red-600 counter" data-target="32">0</div>
+
+<p class="text-[10px] font-bold text-gray-500 uppercase">Cộng tác viên</p>
+
+</div>
+
+</div>
+
+
+<div class="flex flex-col md:flex-row justify-center gap-4 px-4">
+
+<a href="https://zalo.me/0394782861" class="bg-blue-600 text-white px-8 py-4 rounded-xl font-black shadow-lg">CHAT ZALO NGAY</a>
+
+<a href="https://www.facebook.com/thanh.at.144670/" class="bg-blue-800 text-white px-8 py-4 rounded-xl font-black shadow-lg">XEM FACEBOOK</a>
+
+</div>
+
+</section>
+
+
+<section class="py-12 bg-gray-100 px-4">
+
+<div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
+
+<div class="bg-white p-6 rounded-2xl shadow-md border-t-8 border-red-600">
+
+<h3 class="text-xl font-black text-red-600 mb-4">DỊCH VỤ VIETTEL</h3>
+
+<ul class="space-y-3 font-bold text-gray-700">
+
+<li><i class="fa-solid fa-check text-green-500 mr-2"></i> Chuẩn hóa thông tin</li>
+
+<li><i class="fa-solid fa-check text-green-500 mr-2"></i> Hỗ trợ đăng kí từ xa</li>
+
+<li><i class="fa-solid fa-check text-green-500 mr-2"></i> Uy tín, minh bạch, rõ ràng</li>
+
+</ul>
+
+</div>
+
+<div class="bg-white p-6 rounded-2xl shadow-md border-t-8 border-blue-600">
+
+<h3 class="text-xl font-black text-blue-600 mb-4">DỊCH VỤ VINAPHONE</h3>
+
+<ul class="space-y-3 font-bold text-gray-700">
+
+<li><i class="fa-solid fa-check text-green-500 mr-2"></i> Chuẩn hóa MyVNPT</li>
+
+<li><i class="fa-solid fa-check text-green-500 mr-2"></i> Hỗ trợ đăng ký chính chủ</li>
+
+<li><i class="fa-solid fa-check text-green-500 mr-2"></i> Xử lý sim chặn nhanh</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</section>
+
+
+<footer class="py-8 text-center font-bold text-gray-400 text-xs">
+
+© 2026 EM ĐẠT MMO - HOTLINE: 0394.782.861
+
+</footer>
+
+
+<script>
+
+const counters = document.querySelectorAll('.counter');
+
+counters.forEach(counter => {
+
+const update = () => {
+
+const target = +counter.getAttribute('data-target');
+
+const c = +counter.innerText;
+
+const inc = target / 40;
+
+if (c < target) {
+
+counter.innerText = Math.ceil(c + inc);
+
+setTimeout(update, 30);
+
+} else counter.innerText = target.toLocaleString();
+
+};
+
+update();
+
+});
+
+</script>
+
+</body>
+
+</html
